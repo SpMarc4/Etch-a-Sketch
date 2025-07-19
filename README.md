@@ -1,1 +1,3 @@
 # Etch-a-Sketch
+
+An Etch A Sketch is a mechanical drawing toy with a flat, gray screen encased in a red plastic frame. It features two white knobs that control a stylus inside, which displaces aluminum powder on the back of the screen to create lines. Turning the knobs moves the stylus, allowing users to draw lines and shapes. To erase, the toy is shaken, causing the powder to redistribute and clear the screen
