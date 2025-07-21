@@ -1,11 +1,39 @@
 
-.title {
-    display: flex;
-    justify-content: center;
-}
-
-.squares {
+/* Se añade estilo al cuerpo, en el se utiliza flex con
+dirección columna, se estiran los elementos para que ocupen
+el mayor espacio posible*/
+body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
+}
+
+/* Se centra el elemento individualmente, ya que con
+align-items en body no dejaría estirar el elemento al máximo*/
+.title {
+    align-self: center;
+}
+
+/* Se crea lógica del contenedor, se aplican tamaños min y max
+, además de wrap para que se cambien de fila los cuadrados*/
+.squares {
+    margin: 10px;
+    display: flex;
+    flex: 1 1 0;
+
+    align-self: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: black 2px solid;
+    min-width: 600px;
+    max-width: 720px;
+}
+
+/* el 5.8% es una aproximación del (1/16)*100 teniendo en 
+cuenta los bordes, es el espacio que debe ocupar cada 
+como porcentage del tamaño del contenedor principal*/
+.square {
+    flex: 1 1 5.8%;
+    aspect-ratio: 1/1;
+    border: black solid 1px;
 }
