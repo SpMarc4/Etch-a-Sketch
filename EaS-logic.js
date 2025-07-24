@@ -1,6 +1,5 @@
 // Se crea selector del cuerpo del documento.
 const body = document.querySelector("body"); 
-console.log(body)
 
 // Se crea contenedor de todos los cuadrados y se añade clase
 let squares = document.createElement("div");
@@ -19,53 +18,94 @@ body.appendChild(squares);
 
 // Se crea evento para la selección de la grid
 
-// Bucle que crea cada uno de los cuadrados, se añade clase
-// y los inserta en el contenedor principal
-
-// const minWidth = 600;
+// Se establecen constantes que se pueden modificar
 const width = 720;
-const squaresBorder = 1;
+
+// Se añade el evento para crear las dimesiones de la grid
 btnGrid.addEventListener("click", function () {
     squares.remove()
     gridNum = prompt("Select the number o cells n<100 - nxn: ")
     if (gridNum > 100) {
         gridNum = 100;
     };
-    createGrid(gridNum,width,squaresBorder)
+    createGrid(gridNum,width)
 
 });
 
-function createGrid(gridNum,boxWidth,squaresBorder) {
+
+// Se crea una función para elegir un colo RGB al azar
+
+function randomColor() {
+    const randomValue = Math.random()
+    if (0<=randomValue && randomValue<1/3) {
+        return "red"
+    }
+
+    else if (1/3<=randomValue && randomValue<=2/3) {
+        return "green"
+    }
+
+    else {
+        return "blue"
+    }
+
+};
+
+// Se crea lógica para colorear los cuadrados, se tiene en cuenta si el 
+// cuadrado ya está pintado.
+
+function colorizeAndDarkness (square) {
+    
+    // Solo cambia el color si no existe previamente
+    if (square.style["background-color"] == "") {
+        square.style["background-color"]=randomColor();
+    }
+
+    // Añade una primera capa de opacidad del 0.1 en caso de no tener
+    if (!square.style["opacity"] ) {
+        square.style["opacity"] = 0.1;
+
+    }
+
+    // Incrementa la opacidad en 0.1
+    
+    else if (parseFloat(square.style["opacity"])<1) {
+        square.style["opacity"] = parseFloat(square.style["opacity"]) + 0.1;
+        
+
+    }
+
+};
+
+// Función que crea la grid
+
+function createGrid(gridNum,boxWidth) {
     // Se crea contenedor de todos los cuadrados y se añade clase
     squares = document.createElement("div");
     squares.classList.add("squares");
     /* Se crea lógica del contenedor, se aplican tamaños min y max
 ,    además de wrap para que se cambien de fila los cuadrados*/
 
-    squares.setAttribute("style", `margin: 10px; display: flex; flex: 1 1 0; align-self: center; flex-direction: row; flex-wrap: wrap; border: black 2px solid; width: ${width}px`)
+    squares.setAttribute("style", `margin: 100px; display: flex; flex: 1 1 auto; align-self: center; flex-direction: row; flex-wrap: wrap; border: black 2px solid; ;min-width: ${width}px`)
         
-    // Se inserta contenedor principal en el cuerpo
-    body.appendChild(squares);
-
     for (let i = 0; i < gridNum*gridNum; i++) {
     // Se crea variable para almacenar el tamaño de la grid y una grid
     // predeterminada
         const square = document.createElement("div");
         square.classList.add("square");
         square.style["aspect-ratio"] = 1/1;
-        square.style["border"] = `red solid ${squaresBorder}px`
-        console.log((100*(width-2))/(width*gridNum));
-        square.style["flex-basis"] = `${((100*(width-(squaresBorder*2*gridNum)))/(width*gridNum))}%`;
+        square.style["box-sizing"] = "border-box";
+        square.style["border"] = `red solid 1px`
+        square.style["flex-basis"] = `${((100/gridNum))}%`;
         squares.appendChild(square);
     // Lógica hover (rastro) del mouse en el grid
     
-    let squareSelector = document.querySelectorAll(".square")
-    squareSelector.forEach ( (elem) =>
-        elem.addEventListener("mouseover", (event) => 
-            elem.style["background-color"]="black")
+        square.addEventListener("mouseover", function () { 
+            colorizeAndDarkness (square)} 
     )
+
+    // Se inserta contenedor principal en el cuerpo
+    body.appendChild(squares);
 }
 }
-
-
 
